@@ -1,11 +1,9 @@
 server:
   port: 8080
   
-
 spring:
   application:
     name: gateway-service
-
   cloud:
     gateway:
       discovery:
@@ -17,14 +15,17 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
+            
         - id: medecin-service
           uri: lb://medecin-service
           predicates:
             - Path=/api/medecins/**
+            
         - id: rendezvous-service
           uri: lb://rendezvous-service
           predicates:
             - Path=/api/rendezvous/**
+            
         - id: patient-service
           uri: lb://patient-service
           predicates:
@@ -42,3 +43,8 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: always
